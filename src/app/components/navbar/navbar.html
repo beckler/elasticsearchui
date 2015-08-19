@@ -1,0 +1,15 @@
+<nav id="navbar" class="ui menu">
+  <div class="header item">Log Search</div>
+  <a class="active item" data-tab="search-tab">Search</a>
+  <a class="item" data-tab="browse-tab">Browse</a>
+  <div class="right menu">
+    <a class="status item" ng-class="status">
+      Service Status
+      <div ng-show="isLoading" class="ui active mini inline loader"></div>
+      <i ng-hide="isLoading" class="dropdown icon"></i>
+    </a>
+    <div class="ui popup transition hidden">
+      <status/>
+    </div>
+  </div>
+</nav>

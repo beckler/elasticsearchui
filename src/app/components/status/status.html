@@ -1,0 +1,25 @@
+<div id="status" class="ui two column vertically divided grid">
+  <div class="row">
+    <button ng-click="refreshAll()" class="ui tiny labeled icon button">
+      <i class="refresh icon"></i> Refresh
+    </button>
+    <a target="_blank" href="{{esUrl + '/_cat/health?v'}}" class="ui tiny labeled icon button">
+      <i class="external share icon"></i> Details
+    </a>
+  </div>
+  <div class="row" ng-repeat="(key, value) in nodes.nodes track by key">
+    <div class="column">
+      <h4 class="ui header" ng-bind="value.transport_address | limitTo: 16 : -22 | limitTo: 16 : 6"></h4>
+      <a target="_blank" href="{{esUrl + '/_cat/nodes?v'}}" class="ui tiny icon label">
+        <i class="external share icon"></i> Details
+      </a>
+    </div>
+    <div class="column">
+      <div class="ui list">
+        <div class="item"><b>{{value.os.cpu ? "Server" : "Client"}}</b></div>
+        <div class="item" ng-if="value.os.cpu"><b>CPU:</b> {{value.os.cpu.usage + '%'}}</div>
+        <div class="item" ng-if="value.os.mem"><b>Mem:</b> {{value.os.mem.used_percent + '%'}}</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<div id="search" class="ui segment">
+  <div class="ui segment">
+    <div class="ui transparent icon input">
+      <input type="text" ng-model="textQuery" placeholder="{{'Search'
+      + (selectedIndex ? ' in ' + selectedIndex : '')
+      + (selectedType ? ', in ' + selectedType : '')
+      + (selectedProperty ? ', and ' + selectedProperty + ' contains' : ' for') + '...'}}">
+      <i class="search link icon"></i>
+    </div>
+  </div>
+  <div class="ui equal width divided grid">
+    <div class="column">
+      <div>
+        <span><b>Indices</b></span>
+        <button class="ui mini labeled icon button cancel" ng-show="selectedIndex" ng-click="setIndex(undefined)"><i class="refresh icon"></i>Reset</button>
+      </div>
+      <span class="placeholder" ng-if="mappings.length < 1">(There are no indices)</span>
+      <div class="ui celled list">
+        <div class="item" ng-class="selectedIndex == key ? 'selected' : ''" ng-repeat="(key, value) in mappings track by id">
+          <button class="ui tiny icon button remove">
+            <i class="delete icon"></i>
+          </button>
+          <div class="ui popup transition hidden">
+            <button class="ui tiny red button">Delete?</button>
+          </div>
+          <div class="ui empty circular label status" ng-class="value.state == 'open' ? 'green' : 'red'"></div>
+          <a class="selection" ng-click="setIndex(key)">{{key}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div>
+        <span><b>Type</b></span>
+        <button class="ui mini labeled icon button cancel" ng-show="selectedType" ng-click="setType(undefined)"><i class="refresh icon"></i>Reset</button>
+      </div>
+      <span class="placeholder" ng-hide="selectedIndex">(Select an index)</span>
+      <div class="ui celled list">
+        <div class="item" ng-class="selectedType == key ? 'selected' : ''" ng-repeat="(key, value) in mappings[selectedIndex].mappings track by key">
+          <button class="ui tiny icon button remove">
+            <i class="delete icon"></i>
+          </button>
+          <div class="ui popup transition hidden">
+            <button class="ui tiny red button">Delete?</button>
+          </div>
+          <a class="selection" ng-click="setType(key)">{{key}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="column">
+      <div>
+        <span><b>Property</b></span>
+        <button class="ui mini labeled icon button cancel" ng-show="selectedProperty" ng-click="setProperty(undefined)"><i class="refresh icon"></i>Reset</button>
+      </div>
+      <span class="placeholder" ng-hide="selectedIndex">(Select a type)</span>
+      <div class="ui list">
+        <div class="item" ng-class="selectedProperty == key ? 'selected' : ''" ng-repeat="(key, value) in mappings[selectedIndex].mappings[selectedType].properties track by key">
+          <button class="ui tiny disabled button">
+            <span>{{value.type}}</span>
+          </button>
+          <a class="selection" ng-click="setProperty(key)">{{key}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
