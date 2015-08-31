@@ -18,7 +18,13 @@
     return directive;
 
     /** @ngInject */
-    function ViewerController() {
+    function ViewerController($scope, ViewerFactory) {
+      $scope.$watch(function() { return ViewerFactory.Query; }, function(newVal, oldVal) {
+        $scope.query = JSON.stringify(newVal);
+      }, true);
+      $scope.$watch(function() { return ViewerFactory.Results; }, function(newVal, oldVal) {
+        $scope.results = JSON.stringify(newVal);
+      }, true);
     }
   }
 

@@ -17,8 +17,8 @@
       },
       getUniqueValues: function(done, index, type, property, resultSize) {
         // antcipate undefined
-        index = index ? '/' + index : index;
-        type = type ? '/' + type : type;
+        index = index ? '/' + index : '';
+        type = type ? '/' + type : '';
 
         // define params
         var params = {
@@ -45,8 +45,8 @@
       ///search methods
       fullTextSearch: function(done, index, type, query, page) {
         // add '/' if defined
-        index = index ? '/' + index : index;
-        type = type ? '/' + type : type;
+        index = index ? '/' + index : '';
+        type = type ? '/' + type : '';
 
         // define params
         var params = {
@@ -56,7 +56,7 @@
           "query_cache": true,
         };
         // make query
-        return postApi(done, index + type + '/_search', body, params);
+        return getApi(done, index + type + '/_search', params);
       },
 
       // delete methods

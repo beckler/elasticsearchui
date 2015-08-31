@@ -1,7 +1,7 @@
 <div id="search" class="ui segment">
   <div class="ui segment">
     <div class="ui transparent icon input">
-      <input type="text" ng-model="textQuery" placeholder="{{'Search'
+      <input type="text" ng-model="textQuery" ng-model-options="{ debounce: 800 }" placeholder="{{'Search'
       + (selectedIndex ? ' in ' + selectedIndex : '')
       + (selectedType ? ', in ' + selectedType : '')
       + (selectedProperty ? ', and ' + selectedProperty + ' contains' : ' for') + '...'}}">
@@ -16,12 +16,12 @@
       </div>
       <span class="placeholder" ng-if="mappings.length < 1">(There are no indices)</span>
       <div class="ui celled list">
-        <div class="item" ng-class="selectedIndex == key ? 'selected' : ''" ng-repeat="(key, value) in mappings track by id">
+        <div class="item" ng-class="selectedIndex == key ? 'selected' : ''" ng-repeat="(key, value) in mappings track by key">
           <button class="ui tiny icon button remove">
             <i class="delete icon"></i>
           </button>
           <div class="ui popup transition hidden">
-            <button class="ui tiny red button">Delete?</button>
+            <button class="ui tiny red button" data-ng-click="deleteIndex(key)">Delete?</button>
           </div>
           <div class="ui empty circular label status" ng-class="value.state == 'open' ? 'green' : 'red'"></div>
           <a class="selection" ng-click="setIndex(key)">{{key}}</a>
@@ -40,7 +40,7 @@
             <i class="delete icon"></i>
           </button>
           <div class="ui popup transition hidden">
-            <button class="ui tiny red button">Delete?</button>
+            <button class="ui tiny red button" data-ng-click="deleteType(selectedIndex, key)">Delete?</button>
           </div>
           <a class="selection" ng-click="setType(key)">{{key}}</a>
         </div>

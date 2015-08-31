@@ -16,8 +16,10 @@
     return directive;
 
     /** @ngInject */
-    function searchController($scope, ElasticSearchService, ViewerFactory) {
+    function searchController($scope, $interval, ElasticSearchService, ViewerFactory) {
       $scope.textQuery = '';
+
+      //setters
       $scope.setIndex = function(index) {
         $scope.selectedIndex = index;
         $scope.setType(undefined);
@@ -32,6 +34,8 @@
         $scope.results = undefined;
         $scope.selectedProperty = prop;
       };
+
+      //getters
       $scope.getMappings = function() {
         ElasticSearchService.getMetadata(function(err, data) {
           if (!err) {
@@ -39,13 +43,8 @@
           }
         });
       };
-      $scope.getResults = function(index, type, property) {
-        ElasticSearchService.getUniqueValues(function(err, data) {
-          if (!err) {
-            $scope.results = data.aggregations[Object.keys(data.aggregations)[0]].buckets;
-          }
-        }, index, type, property);
-      };
+
+      //deleters
       $scope.deleteIndex = function(index) {
         ElasticSearchService.deleteIndex(function(err) {
           if (!err) {
@@ -62,34 +61,46 @@
           }
         }, index, type);
       };
+
       //watches
       $scope.$watch('textQuery', function(newVal, oldVal) {
-        if (newVal !== oldVal && newVal !== undefined) {
+        if (newVal !== oldVal && (newVal !== undefined && newVal !== "")) {
           //ugh
-          var obj = {};
-          obj[$scope.selectedProperty || "match_all"] = newVal;
-
-          //set query
-          ViewerFactory.Query = {
-            index: $scope.selectedIndex,
-            type: $scope.selectedType,
-            query: obj
-          };
+          var obj = ($scope.selectedProperty ? $scope.selectedProperty + ':' : '') + newVal;
+          getResults($scope.selectedIndex, $scope.selectedType, obj);
         }
       });
 
-      function registerPopups() {
-        //jQuery
-        $('.item .remove').popup({ //jshint ignore:line
+      //functions
+      function getResults(index, type, query, page) {
+        //preserve state for pagination
+        ViewerFactory.Query = {
+          index: index,
+          type: type,
+          query: query,
+          page: page || 0
+        };
+
+        //get results
+        ElasticSearchService.fullTextSearch(function(err, data) {
+          if (!err) {
+            ViewerFactory.Results = data;
+          }
+        }, index, type, query, page);
+      }
+
+      //init
+      $scope.getMappings();
+    }
+
+    function registerPopups() {
+      //jQuery
+      $('.item .remove').popup({ //jshint ignore:line
           on: 'click',
           inline: true,
           hoverable: true,
           position: 'bottom center'
         });
-      }
-      //init
-      registerPopups();
-      $scope.getMappings();
     }
   }
 

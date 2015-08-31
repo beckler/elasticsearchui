@@ -1,12 +1,12 @@
-Abol Log Search
+ElasticSearch UI
 ======
 This site is compiled (concat + minified) into static assets.  
 It uses tools developed in node.js to build the distributable.
 
 ### Installing
 1. Install [node.js](https://nodejs.org/)
-2. `npm install -g bower gulp` *Note: This process may need to be done in adminstrator mode*
-3. `npm install` *Note: This process may need to be done in adminstrator mode*
+2. `npm install -g bower gulp` *Note: If on Windows, this process may need to be done in adminstrator mode*
+3. `npm install` *Note: If on Windows, this process may need to be done in adminstrator mode*
 4. `bower install`
 
 ### Running
