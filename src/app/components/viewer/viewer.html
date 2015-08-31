@@ -3,7 +3,7 @@
   <pre>{{results}}</pre>
   <pre>{{query}}</pre>
   <div class="ui divided equal width grid">
-    <div class="three wide column">
+    <div class="six wide column">
       <div class="ui divided list">
         <div class="item">
           <i class="file icon"></i>
@@ -11,9 +11,12 @@
             <div class="header">Info</div>
           </div>
         </div>
-        <div class="item">
+        <div class="item" ng-repeat="hit in results.hits track by hit._id">
           <div class="content">
-            <b>Path:</b> <a href="#">C:\temp\test.log</a>
+            <span>{{hit._id}}</span>
+            <div ng-repeat="(key, value) in hit._source track by key">
+              <b>{{key}}</b> <a href="#">{{value}}</a>
+            </div>
           </div>
         </div>
       </div>

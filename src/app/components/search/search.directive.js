@@ -65,9 +65,14 @@
       //watches
       $scope.$watch('textQuery', function(newVal, oldVal) {
         if (newVal !== oldVal && (newVal !== undefined && newVal !== "")) {
-          //ugh
           var obj = ($scope.selectedProperty ? $scope.selectedProperty + ':' : '') + newVal;
           getResults($scope.selectedIndex, $scope.selectedType, obj);
+        }
+      });
+
+      $scope.$watch(function() { return ViewerFactory.Loading; }, function(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          $scope.loading = newVal;
         }
       });
 
@@ -82,10 +87,12 @@
         };
 
         //get results
+        ViewerFactory.Loading = true;
         ElasticSearchService.fullTextSearch(function(err, data) {
           if (!err) {
             ViewerFactory.Results = data;
           }
+          ViewerFactory.Loading = false;
         }, index, type, query, page);
       }
 

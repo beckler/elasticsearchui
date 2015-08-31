@@ -8,6 +8,7 @@
   /** @ngInject */
   function ViewerFactory() {
     return {
+      Loading: false,
       Query: {},
       Results: {}
     };

@@ -1,6 +1,6 @@
 <div id="search" class="ui segment">
   <div class="ui segment">
-    <div class="ui transparent icon input">
+    <div class="ui transparent left icon input" ng-class="{loading: loading}">
       <input type="text" ng-model="textQuery" ng-model-options="{ debounce: 800 }" placeholder="{{'Search'
       + (selectedIndex ? ' in ' + selectedIndex : '')
       + (selectedType ? ', in ' + selectedType : '')
