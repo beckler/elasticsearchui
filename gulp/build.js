@@ -66,7 +66,7 @@ gulp.task('html', ['inject', 'partials'], function () {
 
 // Only applies for fonts from bower dependencies
 // Custom fonts are handled by the "other" task
-gulp.task('fonts', function () {
+gulp.task('fonts', ['semanticFonts'], function () {
   return gulp.src($.mainBowerFiles())
     .pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
     .pipe($.flatten())
@@ -85,6 +85,11 @@ gulp.task('other', function () {
     .pipe(fileFilter)
     .pipe(gulp.dest(path.join(conf.paths.dist, '/')));
 });
+
+gulp.task('semanticFonts', function() {
+  return gulp.src('bower_components/semantic/src/themes/default/assets/fonts/*')
+  .pipe(gulp.dest(path.join(conf.paths.dist, 'styles/themes/default/assets/fonts/')))
+})
 
 gulp.task('clean', function (done) {
   $.del([path.join(conf.paths.dist, '/'), path.join(conf.paths.tmp, '/')], done);
