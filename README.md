@@ -1,4 +1,4 @@
-ElasticSearch UI
+ElasticSearch UI [![Build Status](https://travis-ci.org/beckler/elasticsearchui.svg?branch=master)](https://travis-ci.org/beckler/elasticsearchui)
 ======
 This site is compiled (concat + minified) into static assets.
 It uses tools developed in node.js to build the distributable.
