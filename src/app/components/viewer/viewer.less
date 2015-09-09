@@ -1,8 +1,41 @@
 #viewer {
   margin: 5px 0;
 
+  pre {
+    margin-left: 1em;
+    display: inline;
+    overflow-x: hidden;
+    background-color: lightgrey;
+    border-radius: 0.2em;
+    border: none;
+  }
+
+  .grid {
+    max-height: 90vh;
+  }
+
+  .placeholder {
+    font-size:11px;
+  }
+
+  .content {
+    padding: 0.2em 0;
+    max-height: 30vh;
+    overflow-y: auto;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .left {
+    overflow-y: auto;
+  }
+
   .item {
     white-space: nowrap;
-    overflow-x: hidden;
+  }
+
+  .highlight {
+    background-color: yellow;
   }
 }

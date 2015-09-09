@@ -6,7 +6,10 @@
     .run(runBlock);
 
   /** @ngInject */
-  function runBlock($log) {
+  function runBlock($log, $rootScope) {
+    $rootScope.Utils = {
+      keys: Object.keys
+    };
     $log.debug('runBlock end');
   }
 })();

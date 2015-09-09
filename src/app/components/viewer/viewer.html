@@ -1,9 +1,7 @@
 <div id="viewer" class="ui segment">
   <h4>Results</h4>
-  <pre>{{results}}</pre>
-  <pre>{{query}}</pre>
   <div class="ui divided equal width grid">
-    <div class="six wide column">
+    <div class="six wide column left">
       <div class="ui divided list">
         <div class="item">
           <i class="file icon"></i>
@@ -11,17 +9,18 @@
             <div class="header">Info</div>
           </div>
         </div>
-        <div class="item" ng-repeat="hit in results.hits track by hit._id">
-          <div class="content">
-            <span>{{hit._id}}</span>
+        <div class="item" ng-repeat="hit in results.hits">
+          <div ng-click="selectedObject = hit._source" class="content">
             <div ng-repeat="(key, value) in hit._source track by key">
-              <b>{{key}}</b> <a href="#">{{value}}</a>
+              <div ng-if="key === 'message'" ><b>{{(key | capitalize) + ': '}}</b><pre ng-bind-html="value | highlightruncate: queryTerm"></pre></div>
+              <span class="placeholder" ng-if="key !== 'message'"><b>{{(key | capitalize) + ': '}}</b>{{value}}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="column">
+
     </div>
   </div>
 </div>

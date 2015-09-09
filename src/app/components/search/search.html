@@ -14,7 +14,7 @@
         <span><b>Indices</b></span>
         <button class="ui mini labeled icon button cancel" ng-show="selectedIndex" ng-click="setIndex(undefined)"><i class="refresh icon"></i>Reset</button>
       </div>
-      <span class="placeholder" ng-if="mappings.length < 1">(There are no indices)</span>
+      <span class="placeholder" ng-if="mappings && Utils.keys(mappings).length < 1">(There are no indices)</span>
       <div class="ui celled list">
         <div class="item" ng-class="selectedIndex == key ? 'selected' : ''" ng-repeat="(key, value) in mappings track by key">
           <button class="ui tiny icon button remove">
@@ -30,10 +30,10 @@
     </div>
     <div class="column">
       <div>
-        <span><b>Type</b></span>
+        <span><b>Types</b></span>
         <button class="ui mini labeled icon button cancel" ng-show="selectedType" ng-click="setType(undefined)"><i class="refresh icon"></i>Reset</button>
       </div>
-      <span class="placeholder" ng-hide="selectedIndex">(Select an index)</span>
+      <span class="placeholder" ng-if="!selectedIndex">(Select an index)</span>
       <div class="ui celled list">
         <div class="item" ng-class="selectedType == key ? 'selected' : ''" ng-repeat="(key, value) in mappings[selectedIndex].mappings track by key">
           <button class="ui tiny icon button remove">
@@ -48,10 +48,10 @@
     </div>
     <div class="column">
       <div>
-        <span><b>Property</b></span>
+        <span><b>Properties</b></span>
         <button class="ui mini labeled icon button cancel" ng-show="selectedProperty" ng-click="setProperty(undefined)"><i class="refresh icon"></i>Reset</button>
       </div>
-      <span class="placeholder" ng-hide="selectedIndex">(Select a type)</span>
+      <span class="placeholder" ng-if="!selectedIndex">(Select a type)</span>
       <div class="ui list">
         <div class="item" ng-class="selectedProperty == key ? 'selected' : ''" ng-repeat="(key, value) in mappings[selectedIndex].mappings[selectedType].properties track by key">
           <button class="ui tiny disabled button">

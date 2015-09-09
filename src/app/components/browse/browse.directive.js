@@ -16,7 +16,7 @@
     return directive;
 
     /** @ngInject */
-    function BrowseController($scope, ElasticSearchService, ViewerFactory) {
+    function BrowseController() {
     }
   }
 

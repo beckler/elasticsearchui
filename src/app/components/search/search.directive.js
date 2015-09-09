@@ -65,7 +65,8 @@
       //watches
       $scope.$watch('textQuery', function(newVal, oldVal) {
         if (newVal !== oldVal && (newVal !== undefined && newVal !== "")) {
-          var obj = ($scope.selectedProperty ? $scope.selectedProperty + ':' : '') + newVal;
+          var obj = {};
+          obj[$scope.selectedProperty ? $scope.selectedProperty : '_all'] = newVal;
           getResults($scope.selectedIndex, $scope.selectedType, obj);
         }
       });
@@ -83,6 +84,7 @@
           index: index,
           type: type,
           query: query,
+          text: $scope.textQuery,
           page: page || 0
         };
 

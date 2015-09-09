@@ -39,7 +39,7 @@
         };
 
         //make query
-        return postApi(done, index + type + '/_search', body, params);
+        return postApi(done, index + type + '/_search', params, body);
       },
 
       ///search methods
@@ -48,15 +48,19 @@
         index = index ? '/' + index : '';
         type = type ? '/' + type : '';
 
-        // define params
+        // define body && params
+        var body = {
+          "query" : {
+            "match_phrase": query
+          }
+        };
         var params = {
-          q: query,
           size: 50,
           from: (page || 0) * 50,
           "query_cache": true,
         };
         // make query
-        return getApi(done, index + type + '/_search', params);
+        return postApi(done, index + type + '/_search', params, body);
       },
 
       // delete methods
@@ -72,7 +76,7 @@
     function getApi(done, path, params) {
       return apiCall(done, 'GET', ES_URL + path, null, params);
     }
-    function postApi(done, path, body, params) {
+    function postApi(done, path, params, body) {
       return apiCall(done, 'POST', ES_URL + path, body, params);
     }
     function deleteApi(done, path) {
@@ -93,6 +97,5 @@
         return done(err.error || 'Unable to connect.');
       });
     }
-
   }
 })();

@@ -19,16 +19,19 @@
 
     /** @ngInject */
     function ViewerController($scope, ViewerFactory) {
-
-
-
       $scope.$watch(function() { return ViewerFactory.Query; }, function(newVal, oldVal) {
-        $scope.query = JSON.stringify(newVal);
+        if (newVal && newVal !== oldVal)
+        {
+          $scope.queryTerm = newVal.text;
+          $scope.query = JSON.stringify(newVal);
+        }
       }, true);
       $scope.$watch(function() { return ViewerFactory.Results; }, function(newVal, oldVal) {
-        $scope.resultTime = newVal.took;
-        $scope.timedOut = newVal.timed_out;
-        $scope.results = newVal.hits;
+        if (newVal !== oldVal) {
+          $scope.resultTime = newVal.took;
+          $scope.timedOut = newVal.timed_out;
+          $scope.results = newVal.hits;
+        }
       }, true);
     }
   }
