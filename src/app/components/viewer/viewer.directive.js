@@ -18,7 +18,7 @@
     return directive;
 
     /** @ngInject */
-    function ViewerController($scope, ViewerFactory) {
+    function ViewerController($scope, ViewerFactory, ElasticSearchService) {
       $scope.$watch(function() { return ViewerFactory.Query; }, function(newVal, oldVal) {
         if (newVal && newVal !== oldVal)
         {
@@ -27,10 +27,20 @@
         }
       }, true);
       $scope.$watch(function() { return ViewerFactory.Results; }, function(newVal, oldVal) {
-        if (newVal !== oldVal) {
+        if (newVal && newVal !== oldVal) {
           $scope.resultTime = newVal.took;
           $scope.timedOut = newVal.timed_out;
           $scope.results = newVal.hits;
+        }
+      }, true);
+
+      $scope.$watch(function() { return $scope.selectedObj; }, function(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          $scope.loading = true;
+          ElasticSearchService.getFileContents(function(err, data) {
+            $scope.selectedFile = data.hits;
+            $scope.loading = false;
+          }, $scope.results.hits[newVal]._source.path)
         }
       }, true);
     }

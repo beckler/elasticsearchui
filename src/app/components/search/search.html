@@ -1,5 +1,5 @@
 <div id="search" class="ui segment">
-  <div class="ui segment">
+  <div class="ui segment" ng-class="{error: error}">
     <div class="ui transparent left icon input" ng-class="{loading: loading}">
       <input type="text" ng-model="textQuery" ng-model-options="{ debounce: 800 }" placeholder="{{'Search'
       + (selectedIndex ? ' in ' + selectedIndex : '')
@@ -14,7 +14,7 @@
         <span><b>Indices</b></span>
         <button class="ui mini labeled icon button cancel" ng-show="selectedIndex" ng-click="setIndex(undefined)"><i class="refresh icon"></i>Reset</button>
       </div>
-      <span class="placeholder" ng-if="mappings && Utils.keys(mappings).length < 1">(There are no indices)</span>
+      <span class="placeholder" ng-if="mappings && Utils.keys(mappings).length < 1"><i>(There are no indices)</i></span>
       <div class="ui celled list">
         <div class="item" ng-class="selectedIndex == key ? 'selected' : ''" ng-repeat="(key, value) in mappings track by key">
           <button class="ui tiny icon button remove">
@@ -33,7 +33,7 @@
         <span><b>Types</b></span>
         <button class="ui mini labeled icon button cancel" ng-show="selectedType" ng-click="setType(undefined)"><i class="refresh icon"></i>Reset</button>
       </div>
-      <span class="placeholder" ng-if="!selectedIndex">(Select an index)</span>
+      <span class="placeholder" ng-if="!selectedIndex"><i>(Select an index)</i></span>
       <div class="ui celled list">
         <div class="item" ng-class="selectedType == key ? 'selected' : ''" ng-repeat="(key, value) in mappings[selectedIndex].mappings track by key">
           <button class="ui tiny icon button remove">
@@ -51,7 +51,7 @@
         <span><b>Properties</b></span>
         <button class="ui mini labeled icon button cancel" ng-show="selectedProperty" ng-click="setProperty(undefined)"><i class="refresh icon"></i>Reset</button>
       </div>
-      <span class="placeholder" ng-if="!selectedIndex">(Select a type)</span>
+      <span class="placeholder" ng-if="!selectedIndex"><i>(Select a type)</i></span>
       <div class="ui list">
         <div class="item" ng-class="selectedProperty == key ? 'selected' : ''" ng-repeat="(key, value) in mappings[selectedIndex].mappings[selectedType].properties track by key">
           <button class="ui tiny disabled button">

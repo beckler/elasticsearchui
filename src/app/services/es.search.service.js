@@ -41,6 +41,9 @@
         //make query
         return postApi(done, index + type + '/_search', params, body);
       },
+      getFileContents: function(done, path) {
+        return this.fullTextSearch(done, null, null, { "path" : path });
+      },
 
       ///search methods
       fullTextSearch: function(done, index, type, query, page) {

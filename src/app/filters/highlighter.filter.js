@@ -3,7 +3,7 @@
 
   angular
     .module('elasticSearchUI')
-    .filter('highligh', highlight)
+    .filter('highlight', highlight)
     .filter('highlightruncate', highlightTruncate);
 
   /** @ngInject */
@@ -11,14 +11,14 @@
     return function(input, query) {
       input = escapeString(input);
       query = escapeString(query);
-      var indexes = getAllIndexes(input, query);
+      var indexes = getAllIndexes(input.toLowerCase(), query.toLowerCase());
       if (indexes.length > 0) {
         var displayStrings = [];
         for (var i = 0; i < indexes.length; i++) {
           displayStrings.push(
             input.slice(indexes[i] - query.length, indexes[i]) +
-            '<span class="highlight">' + query + '</span>' +
-            input.slice(indexes[i] + query.length, indexes[i] + query.length + 20));
+            '<span class="highlight">' + input.slice(indexes[i], indexes[i] + query.length) + '</span>' +
+            input.slice(indexes[i] + query.length, indexes[i] + query.length + 50));
         }
         return displayStrings;
       } else {
@@ -31,7 +31,7 @@
     return function(input, query) {
       input = escapeString(input);
       query = escapeString(query);
-      if (input.indexOf(query) > -1) {
+      if (input.toLowerCase().indexOf(query.toLowerCase()) > -1) {
         return input.split(query).join('<span class="highlight">' + query + '</span>');
       } else {
         return input;

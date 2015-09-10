@@ -77,6 +77,12 @@
         }
       });
 
+      $scope.$watch(function() { return ViewerFactory.Results; }, function(newVal, oldVal) {
+        if (newVal && newVal !== oldVal) {
+          $scope.error = !newVal.hits || newVal.hits.total < 1;
+        }
+      });
+
       //functions
       function getResults(index, type, query, page) {
         //preserve state for pagination

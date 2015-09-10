@@ -2,36 +2,45 @@
   margin: 5px 0;
 
   pre {
-    margin-left: 1em;
     display: inline;
     overflow-x: hidden;
-    background-color: lightgrey;
     border-radius: 0.2em;
     border: none;
   }
 
+  .dirty {
+    background-color: lightgrey;
+  }
+
   .grid {
+    min-height: 10vh;
     max-height: 90vh;
   }
 
-  .placeholder {
-    font-size:11px;
+  .center {
+    text-align: center;
   }
 
   .content {
-    padding: 0.2em 0;
+    padding: 0.5em 0.5em;
     max-height: 30vh;
-    overflow-y: auto;
+    white-space: nowrap;
+    overflow: hidden;
     &:hover {
       cursor: pointer;
     }
+  }
+
+  .results {
+    overflow: auto;
+    white-space: nowrap;
   }
 
   .left {
     overflow-y: auto;
   }
 
-  .item {
+  .nowrap {
     white-space: nowrap;
   }
 
