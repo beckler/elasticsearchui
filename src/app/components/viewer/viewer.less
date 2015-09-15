@@ -6,6 +6,21 @@
     overflow-x: hidden;
     border-radius: 0.2em;
     border: none;
+    background-color: lightgray;
+    padding: 0.2em;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: row;
+
+    .left {
+      align-self: flex-start;
+    }
+
+    .right {
+      margin-left: auto;
+    }
   }
 
   .dirty {
@@ -14,12 +29,13 @@
 
   .grid {
     min-height: 10vh;
-    max-height: 90vh;
+    max-height: 65vh;
   }
 
   .center {
     text-align: center;
   }
+
 
   .content {
     padding: 0.5em 0.5em;
@@ -31,8 +47,8 @@
     }
   }
 
-  .results {
-    overflow: auto;
+  .column {
+    overflow-y: auto;
     white-space: nowrap;
   }
 

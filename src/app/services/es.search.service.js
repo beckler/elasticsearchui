@@ -42,23 +42,24 @@
         return postApi(done, index + type + '/_search', params, body);
       },
       getFileContents: function(done, path) {
-        return this.fullTextSearch(done, null, null, { "path" : path });
+        return this.fullTextSearch(done, null, null, { "path" : path }, 0, 10000); //seriously hope a page doensn't contain more then 10000 entries
       },
 
       ///search methods
-      fullTextSearch: function(done, index, type, query, page) {
+      fullTextSearch: function(done, index, type, query, page, size) {
         // add '/' if defined
         index = index ? '/' + index : '';
         type = type ? '/' + type : '';
 
         // define body && params
         var body = {
+          "sort" : ["@timestamp"],
           "query" : {
             "match_phrase": query
           }
         };
         var params = {
-          size: 50,
+          size: size || 50,
           from: (page || 0) * 50,
           "query_cache": true,
         };

@@ -1,12 +1,15 @@
 <div id="viewer" class="ui segment">
-  <h5>Results</h5>
+  <div class="options">
+    <h5>Results</h5>
+    <a class="ui green button right" ng-class="{'disabled': !selectedFile}" ng-click="parseAndEncodeFile(selectedFile)">Download log</a>
+  </div>
   <div class="ui divider"></div>
   <div class="ui divided equal width grid">
     <div class="six wide column left">
       <span class="placeholder center" ng-if="!results || !results.hits || results.hits.length < 1"><i>(There are no results to show)</i></span>
       <div class="ui list">
         <div class="item nowrap" ng-click="$parent.selectedObj = $index" ng-repeat="hit in results.hits track by $index">
-          <div class="ui segment content" ng-class="{'tertiary': $parent.selectedObj === $index }">
+          <div class="ui message content" ng-class="{'blue': $parent.selectedObj === $index }">
             <div ng-repeat="(key, value) in hit._source track by key">
               <div ng-if="key === 'message'"><b>{{(key | capitalize) + ':'}}</b><pre ng-bind-html="value | highlightruncate: queryTerm"></pre></div>
               <span class="placeholder" ng-if="key !== 'message'"><b>{{(key | capitalize) + ':\t'}}</b>{{value}}</span>
@@ -15,14 +18,16 @@
         </div>
       </div>
     </div>
-    <div class="column results">
+    <div class="column">
       <span ng-if="!loading && !selectedFile" class="placeholder center"><i>(Select a result to explore it)</i></span>
-      <div ng-class="{'active': loading}" class="ui inverted dimmer">
-        <div class="ui loader"></div>
-      </div>
-      <div class="ui list">
-        <div class="item" ng-repeat="hit in selectedFile.hits track by $index">
-          <pre class="clean" ng-bind-html="hit._source.message | highlight: queryTerm"><pre>
+      <div ng-if="selectedFile">
+        <div ng-class="{'active': loading}" class="ui inverted dimmer">
+          <div class="ui loader"></div>
+        </div>
+        <div class="ui list">
+          <div class="item" ng-repeat="hit in selectedFile.hits track by $index">
+            <pre class="clean" ng-bind-html="hit._source.message | highlight: queryTerm"><pre>
+          </div>
         </div>
       </div>
     </div>

@@ -62,12 +62,15 @@
         }, index, type);
       };
 
+      $scope.executeSearch = function(query) {
+        var obj = {};
+        obj[$scope.selectedProperty ? $scope.selectedProperty : '_all'] = query;
+        getResults($scope.selectedIndex, $scope.selectedType, obj);
+      };
       //watches
       $scope.$watch('textQuery', function(newVal, oldVal) {
         if (newVal !== oldVal && (newVal !== undefined && newVal !== "")) {
-          var obj = {};
-          obj[$scope.selectedProperty ? $scope.selectedProperty : '_all'] = newVal;
-          getResults($scope.selectedIndex, $scope.selectedType, obj);
+          $scope.executeSearch(newVal);
         }
       });
 

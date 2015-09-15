@@ -9,7 +9,6 @@
   function config($logProvider) {
     // Enable log
     $logProvider.debugEnabled(true);
-
     // Set options third-party lib
     // toastr.options.timeOut = 3000;
     // toastr.options.positionClass = 'toast-top-right';
