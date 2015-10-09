@@ -25,8 +25,8 @@
           <div class="ui loader"></div>
         </div>
         <div class="ui list">
-          <div class="item" ng-repeat="hit in selectedFile.hits track by $index">
-            <pre class="clean" ng-bind-html="hit._source.message | highlight: queryTerm"><pre>
+          <div class="displayed item" ng-repeat="hit in selectedFile.hits track by $index">
+            <pre ng-bind-html="hit._source.message | highlight: queryTerm"><pre>
           </div>
         </div>
       </div>
